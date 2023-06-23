@@ -1,4 +1,6 @@
-#For setting up the project please:
+# For setting up the project:
+
+
     1. Copy .env.example file and rename to .env
     2. set DB_USERNAME and DB_PASSWORD to your choice in .env
     3. set QUEUE_CONNECTION to database in .env
@@ -9,7 +11,7 @@
     6. Run "php artisan queue:work"
 
 
-#For using the server with a http client (curl for example):
+# For using the server with a http client (curl for example):
 
 
     - Retrieving current resources: curl http://localhost:8000/api/resources
@@ -24,5 +26,7 @@
     - Releasing Resource1: curl -X PATCH -H "Content-Type: application/json" -d '{"action": "release", "key":"2222222222"}' http://localhost:8000/api/resources/Resource1
 
 
-#For running tests:
+# For running tests:
+
+
     - In project directory run "php artisan test"
