@@ -6,11 +6,12 @@ use Throwable;
 use Carbon\Carbon;
 use App\Models\Resource;
 use App\Jobs\ResourceJob;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Collection;
 
 class ResourcesController extends Controller
 {
@@ -61,7 +62,6 @@ class ResourcesController extends Controller
     private function acquire($resourceName, Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), ([
-            'key' => 'required|string|min:10|max:10|unique:resources,key',
             'period' => 'sometimes|integer|gt:0'
         ]));
 
@@ -93,7 +93,7 @@ class ResourcesController extends Controller
             $resource->update([
                 'acquired_at' => Carbon::now()->toDateTimeString(),
                 'period' => $request->period? $request->period : null,
-                'key' => $request->key
+                'key' => Str::random(60)
             ]);
 
             if($request->period)
@@ -112,7 +112,8 @@ class ResourcesController extends Controller
             ], 500);
         }
     return response()->json([
-        'Resource Status' => "Resource acquired successfully"
+        'Resource Status' => "Resource acquired successfully",
+        'Key' => $resource->key
     ], 200);
     }
 
