@@ -9,6 +9,7 @@
     4. Run "php artisan migrate"
     5. Run "php artisan db:seed" for seeding starter resources
     6. Run "php artisan queue:work"
+    7. Run "php artisan serve"
 
 
 # For using the server with a http client (curl for example):
