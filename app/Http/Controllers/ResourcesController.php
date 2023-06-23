@@ -6,18 +6,32 @@ use Throwable;
 use Carbon\Carbon;
 use App\Models\Resource;
 use App\Jobs\ResourceJob;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ResourcesController extends Controller
 {
-    public function index()
+    /**
+     * Retrieves all resources
+     *
+     * @return void
+     */
+    public function index(): Collection
     {
         return Resource::all();
     }
 
-    public function action($resourceName, Request $request)
+    /**
+     * Takes request and calls for handler method according to action type specified by the user
+     *
+     * @param [type] $resourceName
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function action($resourceName, Request $request): JsonResponse
     {
         $validator =  Validator::make($request->all(), ([
             'action' => 'required|in:acquire,release'
@@ -37,7 +51,14 @@ class ResourcesController extends Controller
         return $this->release($resourceName, $request);
     }
 
-    public function acquire($resourceName, Request $request)
+    /**
+     * Handles acquiring of resource
+     *
+     * @param [type] $resourceName
+     * @param Request $request
+     * @return JsonResponse
+     */
+    private function acquire($resourceName, Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), ([
             'key' => 'required|string|min:10|max:10|unique:resources,key',
@@ -95,7 +116,14 @@ class ResourcesController extends Controller
     ], 200);
     }
 
-    private function checkResource($resourceName){
+    /**
+     * Checks resource status
+     *
+     * @param [type] $resourceName
+     * @return bool
+     */
+    private function checkResource($resourceName): bool
+    {
         $resource = Resource::where('name', $resourceName)->first();
         if($resource->acquired_at == null){
             return true;
@@ -103,7 +131,15 @@ class ResourcesController extends Controller
         return false;
     }
 
-    public function release($resourceName, Request $request){
+    /**
+     * Handles releasing a resource
+     *
+     * @param [type] $resourceName
+     * @param Request $request
+     * @return JsonResponse
+     */
+    private function release($resourceName, Request $request): JsonResponse
+    {
         $validator = Validator::make($request->all(), ([
             'key' => 'required|string|exists:resources,key'
         ]));
