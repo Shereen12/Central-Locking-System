@@ -2,9 +2,10 @@
 
 
     1. Copy .env.example file and rename to .env
-    2. set DB_USERNAME and DB_PASSWORD to your choice in .env
-    3. set QUEUE_CONNECTION to database in .env
-    3. create mysql database and rename it to the value for DB_NAME in .env
+    2. Set DB_USERNAME and DB_PASSWORD to your choice in .env
+    3. Set QUEUE_CONNECTION to database in .env
+    3. Create mysql database and rename it to the value for DB_NAME in .env
+    4. Copy .env and rename .env.testing and set DB_NAME to cantrallockingsystemtesting and provide DB_USERNAME and DB_PASSWORD
     3. Run composer install in project directory
     4. Run "php artisan migrate"
     5. Run "php artisan db:seed" for seeding starter resources
