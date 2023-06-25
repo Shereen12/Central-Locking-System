@@ -32,3 +32,4 @@
 
 
     - In project directory run "php artisan test"
+    - Unit tests are found in /tests/Unit
