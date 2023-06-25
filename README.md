@@ -19,13 +19,13 @@
     - Retrieving current resources: curl http://localhost:8000/api/resources
 
     
-    - Acquiring Resource1 for indefinite time: curl -X PATCH -H "Content-Type: application/json" -d '{"action": "acquire", "key":"2222222222"}' http://localhost:8000/api/resources/Resource1
+    - Acquiring Resource1 for indefinite time: curl -X PATCH -H "Content-Type: application/json" -d '{"action": "acquire"}' http://localhost:8000/api/resources/Resource1
 
     
-    - Acquiring Resource2 for some time in seconds: curl -X PATCH -H "Content-Type: application/json" -d '{"action": "acquire", "key":"8888888888", "period": 60}' http://localhost:8000/api/resources/Resource2
+    - Acquiring Resource2 for some time in seconds: curl -X PATCH -H "Content-Type: application/json" -d '{"action": "acquire", "period": 60}' http://localhost:8000/api/resources/Resource2
     
     
-    - Releasing Resource1: curl -X PATCH -H "Content-Type: application/json" -d '{"action": "release", "key":"2222222222"}' http://localhost:8000/api/resources/Resource1
+    - Releasing Resource1 by providing it's key: curl -X PATCH -H "Content-Type: application/json" -d '{"action": "release", "key":"Example key"}' http://localhost:8000/api/resources/Resource1
 
 
 # For running tests:
